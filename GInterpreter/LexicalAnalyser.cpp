@@ -115,3 +115,29 @@ bool LexicalAnalyser::readString(std::string &string) {
     return false;
 }
 
+bool LexicalAnalyser::readScope(std::string &scope) {
+    std::string returnString;
+    char ch;
+    bool startedScope = false;
+    int openCount = 0;
+    while (readNext(ch)) {
+        if (!startedScope) {
+            if (isspace(ch)) continue;
+            else if (ch == '{') {
+                openCount++;
+                startedScope = true;
+            } else throw "Extected: {";
+        } else {
+            if (ch == '{') openCount++;
+            if (ch == '}') openCount--;
+            if (openCount != 0) {
+                // Append the character
+                returnString += ch;
+            } else {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+

@@ -32,6 +32,8 @@ public:
     bool readWord(std::string &word);
     // Looks for a " and then reads until the matching "
     bool readString(std::string &string);
+    // Looks for an opening { and then reads until the matching }
+    bool readScope(std::string &scope);
     
     /*
      * Data members

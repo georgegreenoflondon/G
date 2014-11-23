@@ -68,6 +68,10 @@ bool LexicalAnalyser::readWord(std::string &word) {
     bool startedWord = false;
     while (readNext(ch)) {
         if (!isspace(ch)) {
+            if (ch == ';') {
+                word = returnWord;
+                return true;
+            }
             // Append the character
             returnWord += ch;
             startedWord = true;
@@ -92,7 +96,7 @@ bool LexicalAnalyser::readString(std::string &string) {
             else if (ch == '"') { // start the string at the first "
                 intoString = true;
                 continue;
-            } else throw "String not found";
+            } else return false;
         } else {
             if (ch != '\\') { // not an escape character
                 if (ch == '"') { // end "
@@ -183,4 +187,11 @@ bool LexicalAnalyser::readSymbol(char symbol) {
         }
     }
     return false;
+}
+
+bool LexicalAnalyser::back(int count) {
+    if (m_position > count) {
+        m_position -= count;
+        return true;
+    } else return false;
 }

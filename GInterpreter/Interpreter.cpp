@@ -15,8 +15,10 @@
  */
 
 Interpreter::Interpreter(const char *filepath)
-: m_lexer(filepath)
-, m_globalScope() {
+: m_lexer(filepath) {
+    // Create the global scope
+    m_globalScope = new Scope();
+    m_lexer.m_scope = m_globalScope;
     // Setup the functions
     setupFunctions();
     // Start parsing
@@ -45,6 +47,14 @@ void g_print(Interpreter intp, LexicalAnalyser lexer) {
     std::string string;
     if (lexer.readString(string)) {
         std::cout << string;
+    } else {
+        // Go back one char (the first has already been read) and check for a variable
+        if (lexer.readWord(string)) {
+            if (lexer.back(1)) {
+                Variable * var = lexer.m_scope->getVariable(string);
+                std::cout << string << ": " << var->toString() << '\n';
+            }
+        }
     }
 }
 
@@ -57,8 +67,8 @@ void g_int(Interpreter intp, LexicalAnalyser lexer) {
             int i;
             if (lexer.readInt(i)) {
                 int *value = new int(i);
-                intp.m_globalScope.addVariable(varName, 0);
-                intp.m_globalScope.setVariable(varName, value);
+                lexer.m_scope->addVariable(varName, 0);
+                lexer.m_scope->setVariable(varName, value);
             } else throw "Expected int.";
         } else throw "Expected: =.";
     }

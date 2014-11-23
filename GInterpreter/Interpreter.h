@@ -36,9 +36,9 @@ private:
      * Data members
      */
 public:
+    Scope *m_globalScope;
     LexicalAnalyser m_lexer;
     std::map<std::string, g_function> m_keywords;
-    Scope m_globalScope;
     
     /*
      * Functions

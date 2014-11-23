@@ -12,10 +12,29 @@
 #include <stdio.h>
 #include <vector>
 #include <map>
+#include <iostream>
 
-struct Variable {
+class Variable {
+public:
+    ~Variable() {
+        if (m_value != nullptr) {
+            if (m_varType == 0) { // int
+                delete (int *)m_value;
+            }
+        }
+    }
+    
     int m_varType;
     void* m_value;
+    const char * toString() {
+        if (m_varType == 0) { // int
+            int i = *(int *)m_value;
+            char * result;
+            sprintf(result, "%i", i);
+            return result;
+        }
+        return "(NULL)";
+    }
 };
 
 class Scope {
@@ -25,6 +44,7 @@ class Scope {
      */
 public:
     Scope();
+    ~Scope();
     
     /*
      * Methods
@@ -33,7 +53,7 @@ public:
     void setParentScope(Scope parentScope);
     void addVariable(std::string identifier, int varType);
     void setVariable(std::string identifier, void* value);
-    void *getVariable(std::string identifier, int &varType);
+    Variable * getVariable(std::string identifier);
     
     /*
      * Data members
@@ -41,7 +61,7 @@ public:
 private:
     Scope *m_parentScope;
     std::map<std::string, Scope> m_childScopes;
-    std::map<std::string, Variable> m_variables;
+    std::map<std::string, Variable*> *m_variables;
     
 };
 

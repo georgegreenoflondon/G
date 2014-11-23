@@ -21,11 +21,24 @@ public:
     LexicalAnalyser(std::string filepath);
     
     /*
+     * Methods
+     */
+public:
+    // Read a single character from the code source
+    bool readNext(char &result);
+    // Read a chunk from the code source until the specified character is found
+    bool readUntil(char end, std::string &result);
+    // Read a chunk from the code source until whitespace is found
+    bool readWord(std::string &word);
+    
+    /*
      * Data members
      */
 private:
     std::string m_filepath;
     std::string m_code;
+    unsigned int m_position;
+    unsigned int m_length;
     
 };
 

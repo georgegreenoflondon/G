@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 George Green. All rights reserved.
 //
 
-#include <iostream>
 #include "Interpreter.h"
 
 int main(int argc, const char * argv[]) {

@@ -9,7 +9,8 @@
 #include <iostream>
 
 int main(int argc, const char * argv[]) {
-    // insert code here...
-    std::cout << "Hello, World!\n";
+    // Get the first parameter
+    const char *file = argv[1];
+    printf("Reading from %s\n", file);
     return 0;
 }

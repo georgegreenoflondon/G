@@ -44,6 +44,11 @@ void Scope::setVariable(std::string identifier, void *value) {
     if (it != m_variables.end()) { // found
         // Set the value
         auto var = it->second;
+        if (var.m_value != nullptr) { // delete any existing value
+            if (var.m_varType == 0) { // int
+                delete (int *)var.m_value;
+            }
+        }
         var.m_value = value;
     } else { // not found
         throw "Variable does not exist.";

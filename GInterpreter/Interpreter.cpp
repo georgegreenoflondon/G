@@ -48,13 +48,20 @@ void g_print(Interpreter intp, LexicalAnalyser lexer) {
     }
 }
 
-void g_var(Interpreter intp, LexicalAnalyser lexer) {
-    // Get the next word as the function name
-    
-    
-    // Check that the next word is "{"
-    
-    // Read in the whole scope, up to the closing "}"
+void g_int(Interpreter intp, LexicalAnalyser lexer) {
+    // Get the next word as the variable name
+    std::string varName;
+    if (lexer.readIdentifier(varName)) {
+        // Look for the = symbol
+        if (lexer.readSymbol('=')) {
+            int i;
+            if (lexer.readInt(i)) {
+                int *value = new int(i);
+                intp.m_globalScope.addVariable(varName, 0);
+                intp.m_globalScope.setVariable(varName, value);
+            } else throw "Expected int.";
+        } else throw "Expected: =.";
+    }
 }
 
 /*
@@ -63,6 +70,6 @@ void g_var(Interpreter intp, LexicalAnalyser lexer) {
 
 void Interpreter::setupFunctions() {
     m_keywords["print"] = g_print;
-    m_keywords["var"] = g_var;
+    m_keywords["int"] = g_int;
 }
 

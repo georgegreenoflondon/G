@@ -34,6 +34,12 @@ public:
     bool readString(std::string &string);
     // Looks for an opening { and then reads until the matching }
     bool readScope(std::string &scope);
+    // Reads any numerical characters
+    bool readInt(int &result);
+    // Reads any alpha characters that can be used in an identifier upto the next whitespace
+    bool readIdentifier(std::string &identifier);
+    // Looks for the next non-whitespace character and checks if it is the supplied symbol.
+    bool readSymbol(char symbol);
     
     /*
      * Data members

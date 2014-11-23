@@ -141,3 +141,46 @@ bool LexicalAnalyser::readScope(std::string &scope) {
     return false;
 }
 
+bool LexicalAnalyser::readInt(int &result) {
+    std::string intString;
+    readWord(intString);
+    // Check if the read word is numeric
+    for (int i = 0; i < intString.length(); i++) {
+        char ch = intString[i];
+        if (!isdigit(ch)) {
+            if (i == 0) { // allow the first position to be a +/-
+                if (ch == '+' || ch == '-') continue;
+            }
+            throw "Not a valid int.";
+            return false;
+        }
+    }
+    result = atoi(intString.c_str());
+    return true;
+}
+
+bool LexicalAnalyser::readIdentifier(std::string &identifier) {
+    std::string returnIdentifier;
+    if (readWord(returnIdentifier)) {
+        for (int i = 0; i < returnIdentifier.length(); i++) {
+            char ch = returnIdentifier[i];
+            if (!isalpha(ch)) {
+                throw "Extected alpha only identifier";
+                return false;
+            }
+        }
+    }
+    identifier = returnIdentifier;
+    return true;
+}
+
+bool LexicalAnalyser::readSymbol(char symbol) {
+    char ch;
+    while (readNext(ch)) {
+        if (!isspace(ch)) {
+            if (ch == symbol) return true;
+            else return false;
+        }
+    }
+    return false;
+}

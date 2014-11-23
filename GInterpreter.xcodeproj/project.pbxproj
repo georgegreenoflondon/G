@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		E70BDDEA1A220B3D00D15D3A /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E70BDDE91A220B3D00D15D3A /* main.cpp */; };
+		E70BDDF31A22109A00D15D3A /* Interpreter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E70BDDF21A22109900D15D3A /* Interpreter.cpp */; };
+		E70BDDF51A2211CF00D15D3A /* LexicalAnalyser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E70BDDF41A2211CF00D15D3A /* LexicalAnalyser.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +27,10 @@
 /* Begin PBXFileReference section */
 		E70BDDE61A220B3D00D15D3A /* GInterpreter */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = GInterpreter; sourceTree = BUILT_PRODUCTS_DIR; };
 		E70BDDE91A220B3D00D15D3A /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		E70BDDF01A220F5400D15D3A /* LexicalAnalyser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LexicalAnalyser.h; sourceTree = "<group>"; };
+		E70BDDF11A220F8500D15D3A /* Interpreter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Interpreter.h; sourceTree = "<group>"; };
+		E70BDDF21A22109900D15D3A /* Interpreter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Interpreter.cpp; sourceTree = "<group>"; };
+		E70BDDF41A2211CF00D15D3A /* LexicalAnalyser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LexicalAnalyser.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +64,10 @@
 			isa = PBXGroup;
 			children = (
 				E70BDDE91A220B3D00D15D3A /* main.cpp */,
+				E70BDDF11A220F8500D15D3A /* Interpreter.h */,
+				E70BDDF21A22109900D15D3A /* Interpreter.cpp */,
+				E70BDDF01A220F5400D15D3A /* LexicalAnalyser.h */,
+				E70BDDF41A2211CF00D15D3A /* LexicalAnalyser.cpp */,
 			);
 			path = GInterpreter;
 			sourceTree = "<group>";
@@ -118,7 +128,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E70BDDF31A22109A00D15D3A /* Interpreter.cpp in Sources */,
 				E70BDDEA1A220B3D00D15D3A /* main.cpp in Sources */,
+				E70BDDF51A2211CF00D15D3A /* LexicalAnalyser.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

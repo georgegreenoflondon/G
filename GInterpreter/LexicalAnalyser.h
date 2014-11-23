@@ -30,6 +30,8 @@ public:
     bool readUntil(char end, std::string &result);
     // Read a chunk from the code source until whitespace is found
     bool readWord(std::string &word);
+    // Looks for a " and then reads until the matching "
+    bool readString(std::string &string);
     
     /*
      * Data members

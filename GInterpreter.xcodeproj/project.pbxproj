@@ -10,6 +10,7 @@
 		E70BDDEA1A220B3D00D15D3A /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E70BDDE91A220B3D00D15D3A /* main.cpp */; };
 		E70BDDF31A22109A00D15D3A /* Interpreter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E70BDDF21A22109900D15D3A /* Interpreter.cpp */; };
 		E70BDDF51A2211CF00D15D3A /* LexicalAnalyser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E70BDDF41A2211CF00D15D3A /* LexicalAnalyser.cpp */; };
+		E70BDDF81A222FFC00D15D3A /* Scope.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E70BDDF61A222FFC00D15D3A /* Scope.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -31,6 +32,8 @@
 		E70BDDF11A220F8500D15D3A /* Interpreter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Interpreter.h; sourceTree = "<group>"; };
 		E70BDDF21A22109900D15D3A /* Interpreter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Interpreter.cpp; sourceTree = "<group>"; };
 		E70BDDF41A2211CF00D15D3A /* LexicalAnalyser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LexicalAnalyser.cpp; sourceTree = "<group>"; };
+		E70BDDF61A222FFC00D15D3A /* Scope.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Scope.cpp; sourceTree = "<group>"; };
+		E70BDDF71A222FFC00D15D3A /* Scope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scope.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +71,8 @@
 				E70BDDF21A22109900D15D3A /* Interpreter.cpp */,
 				E70BDDF01A220F5400D15D3A /* LexicalAnalyser.h */,
 				E70BDDF41A2211CF00D15D3A /* LexicalAnalyser.cpp */,
+				E70BDDF71A222FFC00D15D3A /* Scope.h */,
+				E70BDDF61A222FFC00D15D3A /* Scope.cpp */,
 			);
 			path = GInterpreter;
 			sourceTree = "<group>";
@@ -128,6 +133,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E70BDDF81A222FFC00D15D3A /* Scope.cpp in Sources */,
 				E70BDDF31A22109A00D15D3A /* Interpreter.cpp in Sources */,
 				E70BDDEA1A220B3D00D15D3A /* main.cpp in Sources */,
 				E70BDDF51A2211CF00D15D3A /* LexicalAnalyser.cpp in Sources */,

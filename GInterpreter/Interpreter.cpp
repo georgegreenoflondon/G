@@ -15,7 +15,8 @@
  */
 
 Interpreter::Interpreter(const char *filepath)
-: m_lexer(filepath) {
+: m_lexer(filepath)
+, m_globalScope() {
     // Setup the functions
     setupFunctions();
     // Start parsing
@@ -33,7 +34,6 @@ Interpreter::Interpreter(const char *filepath)
             finished = true;
         }
     }
-    
 }
 
 /*
@@ -41,17 +41,20 @@ Interpreter::Interpreter(const char *filepath)
  */
 
 void g_print(Interpreter intp, LexicalAnalyser lexer) {
-    // Check that the next character is a "\""
-    char ch;
-    if (lexer.readNext(ch)) {
-        if (ch == '"') {
-            // Read the string to be printed
-            std::string str;
-            lexer.readUntil('"', str);
-            // Print the result string
-            std::cout << str << '\n';
-        } else throw "Expected: \"";
+    // Attempt to read a string from the file
+    std::string string;
+    if (lexer.readString(string)) {
+        std::cout << string;
     }
+}
+
+void g_var(Interpreter intp, LexicalAnalyser lexer) {
+    // Get the next word as the function name
+    
+    
+    // Check that the next word is "{"
+    
+    // Read in the whole scope, up to the closing "}"
 }
 
 /*
@@ -60,5 +63,6 @@ void g_print(Interpreter intp, LexicalAnalyser lexer) {
 
 void Interpreter::setupFunctions() {
     m_keywords["print"] = g_print;
+    m_keywords["var"] = g_var;
 }
 

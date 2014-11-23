@@ -87,3 +87,36 @@ bool LexicalAnalyser::readWord(std::string &word) {
     }
 }
 
+bool LexicalAnalyser::readString(std::string &string) {
+    std::string returnString;
+    char ch;
+    bool intoString = false;
+    while (readNext(ch)) {
+        if (!intoString) {
+            if (isspace(ch)) continue; // ignore whitespace before the first "
+            else if (ch == '"') { // start the string at the first "
+                intoString = true;
+                continue;
+            } else throw "String not found";
+        } else {
+            if (ch != '\\') { // not an escape character
+                if (ch == '"') { // end "
+                    string = returnString;
+                    return true;
+                } else { // just another character to append
+                    returnString += ch;
+                }
+            } else {
+                // Read the next character
+                if (readNext(ch)) {
+                    if (ch == 'n') { // return character
+                        returnString += '\n';
+                    }
+                } else throw "Reached end of file before end of string.";
+            }
+        }
+    }
+    throw "Reached end of file before end of string.";
+    return false;
+}
+

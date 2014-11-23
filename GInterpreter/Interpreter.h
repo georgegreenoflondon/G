@@ -8,6 +8,7 @@
 
 #include <stdio.h>
 #include "LexicalAnalyser.h"
+#include "Scope.h"
 #include <map>
 
 #ifndef GInterpreter_Interpreter_h
@@ -37,6 +38,7 @@ private:
 private:
     LexicalAnalyser m_lexer;
     std::map<std::string, g_function> m_keywords;
+    Scope m_globalScope;
     
     /*
      * Functions

@@ -65,26 +65,21 @@ bool LexicalAnalyser::readUntil(char end, std::string &result) {
 bool LexicalAnalyser::readWord(std::string &word) {
     std::string returnWord;
     char ch;
+    bool startedWord = false;
     while (readNext(ch)) {
         if (!isspace(ch)) {
-            // Append the character to the result
+            // Append the character
             returnWord += ch;
+            startedWord = true;
         } else {
-            if (returnWord.length() != 0) {
-                // We have found the relevant chunk
+            // If the word has started, return the word, else wait for the word to start
+            if (startedWord) {
                 word = returnWord;
                 return true;
-            } else {
-                return false;
             }
         }
     }
-    if (returnWord.length() != 0) {
-        word = returnWord;
-        return true;
-    } else {
-        return false;
-    }
+    return false;
 }
 
 bool LexicalAnalyser::readString(std::string &string) {

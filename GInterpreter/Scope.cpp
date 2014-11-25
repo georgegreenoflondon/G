@@ -15,12 +15,9 @@
 
 Scope::Scope() {
     m_variables = new std::map<std::string, Variable*>();
-    
-    std::cout << "Creating scope\n";
 }
 
 Scope::~Scope() {
-    std::cout << "Destroying scope\n";
     // Delete all of the Variables in the m_variables map
     for (auto it = m_variables->begin(); it != m_variables->end(); ++it) {
         auto var = it->second;
@@ -37,7 +34,6 @@ void Scope::setParentScope(Scope parentScope) {
 }
 
 void Scope::addVariable(std::string identifier, int varType) {
-    printf("Map: %p", m_variables);
     // Check that identifier does not already exist in this scope
     auto it = m_variables->find(identifier);
     if (it == m_variables->end()) { // not found
@@ -51,7 +47,6 @@ void Scope::addVariable(std::string identifier, int varType) {
 }
 
 void Scope::setVariable(std::string identifier, void *value) {
-    printf("Map: %p", m_variables);
     // Check if the variable exists in the scope
     auto it = m_variables->find(identifier);
     if (it != m_variables->end()) { // found
@@ -69,7 +64,6 @@ void Scope::setVariable(std::string identifier, void *value) {
 }
 
 Variable * Scope::getVariable(std::string identifier) {
-    printf("Map: %p", m_variables);
     // Check if the variable exists in scope
     auto it = m_variables->find(identifier);
     if (it != m_variables->end()) { // found

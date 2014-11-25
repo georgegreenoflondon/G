@@ -36,25 +36,25 @@ LexicalAnalyser::LexicalAnalyser(std::string filepath)
  * Methods
  */
 
-bool LexicalAnalyser::readNext(char &result) {
+bool LexicalAnalyser::readNext(char *result) {
     if (m_position < m_length - 1) {
-        result = m_code.at(m_position);
+        *result = m_code.at(m_position);
         m_position++;
         return true;
     }
     return false;
 }
 
-bool LexicalAnalyser::readUntil(char end, std::string &result) {
+bool LexicalAnalyser::readUntil(char end, std::string *result) {
     std::string returnString;
     char ch;
-    while (readNext(ch)) {
+    while (readNext(&ch)) {
         if (ch != end) {
             // Append the characted to the result
             returnString += ch;
         } else {
             // We have found the relevant chunk
-            result = returnString;
+            *result = returnString;
             return true;
         }
     }
@@ -62,14 +62,14 @@ bool LexicalAnalyser::readUntil(char end, std::string &result) {
     return false;
 }
 
-bool LexicalAnalyser::readWord(std::string &word) {
+bool LexicalAnalyser::readWord(std::string *word) {
     std::string returnWord;
     char ch;
     bool startedWord = false;
-    while (readNext(ch)) {
+    while (readNext(&ch)) {
         if (!isspace(ch)) {
             if (ch == ';') {
-                word = returnWord;
+                *word = returnWord;
                 return true;
             }
             // Append the character
@@ -78,7 +78,7 @@ bool LexicalAnalyser::readWord(std::string &word) {
         } else {
             // If the word has started, return the word, else wait for the word to start
             if (startedWord) {
-                word = returnWord;
+                *word = returnWord;
                 return true;
             }
         }
@@ -86,11 +86,11 @@ bool LexicalAnalyser::readWord(std::string &word) {
     return false;
 }
 
-bool LexicalAnalyser::readString(std::string &string) {
+bool LexicalAnalyser::readString(std::string *string) {
     std::string returnString;
     char ch;
     bool intoString = false;
-    while (readNext(ch)) {
+    while (readNext(&ch)) {
         if (!intoString) {
             if (isspace(ch)) continue; // ignore whitespace before the first "
             else if (ch == '"') { // start the string at the first "
@@ -100,14 +100,14 @@ bool LexicalAnalyser::readString(std::string &string) {
         } else {
             if (ch != '\\') { // not an escape character
                 if (ch == '"') { // end "
-                    string = returnString;
+                    *string = returnString;
                     return true;
                 } else { // just another character to append
                     returnString += ch;
                 }
             } else {
                 // Read the next character
-                if (readNext(ch)) {
+                if (readNext(&ch)) {
                     if (ch == 'n') { // return character
                         returnString += '\n';
                     }
@@ -119,12 +119,12 @@ bool LexicalAnalyser::readString(std::string &string) {
     return false;
 }
 
-bool LexicalAnalyser::readScope(std::string &scope) {
+bool LexicalAnalyser::readScope(std::string *scope) {
     std::string returnString;
     char ch;
     bool startedScope = false;
     int openCount = 0;
-    while (readNext(ch)) {
+    while (readNext(&ch)) {
         if (!startedScope) {
             if (isspace(ch)) continue;
             else if (ch == '{') {
@@ -138,6 +138,7 @@ bool LexicalAnalyser::readScope(std::string &scope) {
                 // Append the character
                 returnString += ch;
             } else {
+                *scope = returnString;
                 return true;
             }
         }
@@ -145,9 +146,9 @@ bool LexicalAnalyser::readScope(std::string &scope) {
     return false;
 }
 
-bool LexicalAnalyser::readInt(int &result) {
+bool LexicalAnalyser::readInt(int *result) {
     std::string intString;
-    readWord(intString);
+    readWord(&intString);
     // Check if the read word is numeric
     for (int i = 0; i < intString.length(); i++) {
         char ch = intString[i];
@@ -159,13 +160,13 @@ bool LexicalAnalyser::readInt(int &result) {
             return false;
         }
     }
-    result = atoi(intString.c_str());
+    *result = atoi(intString.c_str());
     return true;
 }
 
-bool LexicalAnalyser::readIdentifier(std::string &identifier) {
+bool LexicalAnalyser::readIdentifier(std::string *identifier) {
     std::string returnIdentifier;
-    if (readWord(returnIdentifier)) {
+    if (readWord(&returnIdentifier)) {
         for (int i = 0; i < returnIdentifier.length(); i++) {
             char ch = returnIdentifier[i];
             if (!isalpha(ch)) {
@@ -174,13 +175,13 @@ bool LexicalAnalyser::readIdentifier(std::string &identifier) {
             }
         }
     }
-    identifier = returnIdentifier;
+    *identifier = returnIdentifier;
     return true;
 }
 
 bool LexicalAnalyser::readSymbol(char symbol) {
     char ch;
-    while (readNext(ch)) {
+    while (readNext(&ch)) {
         if (!isspace(ch)) {
             if (ch == symbol) return true;
             else return false;

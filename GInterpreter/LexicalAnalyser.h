@@ -26,19 +26,19 @@ public:
      */
 public:
     // Read a single character from the code source
-    bool readNext(char &result);
+    bool readNext(char *result);
     // Read a chunk from the code source until the specified character is found
-    bool readUntil(char end, std::string &result);
+    bool readUntil(char end, std::string *result);
     // Read a chunk from the code source until whitespace is found
-    bool readWord(std::string &word);
+    bool readWord(std::string *word);
     // Looks for a " and then reads until the matching "
-    bool readString(std::string &string);
+    bool readString(std::string *string);
     // Looks for an opening { and then reads until the matching }
-    bool readScope(std::string &scope);
+    bool readScope(std::string *scope);
     // Reads any numerical characters
-    bool readInt(int &result);
+    bool readInt(int *result);
     // Reads any alpha characters that can be used in an identifier upto the next whitespace
-    bool readIdentifier(std::string &identifier);
+    bool readIdentifier(std::string *identifier);
     // Looks for the next non-whitespace character and checks if it is the supplied symbol.
     bool readSymbol(char symbol);
     // Move the position pointer back

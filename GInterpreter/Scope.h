@@ -26,12 +26,12 @@ public:
     
     int m_varType;
     void* m_value;
-    const char * toString() {
+    std::string toString() {
         if (m_varType == 0) { // int
             int i = *(int *)m_value;
-            char * result;
-            sprintf(result, "%i", i);
-            return result;
+            char result[16] = "xxxxxxxxxxxxxxx";
+            snprintf(result, 16, "%d", i);
+            return std::string(result);
         }
         return "(NULL)";
     }

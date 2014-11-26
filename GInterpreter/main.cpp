@@ -13,7 +13,8 @@ int main(int argc, const char * argv[]) {
     const char *file = argv[1];
     printf("Reading from %s\n", file);
     // Create an interpreter
-    Interpreter Interpreter(file);
+    Interpreter *interpreter = new Interpreter(file);
+    delete interpreter;
     // Return
     return 0;
 }

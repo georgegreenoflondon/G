@@ -17,14 +17,6 @@ Scope::Scope() {
     m_variables = new std::map<std::string, Variable*>();
 }
 
-Scope::~Scope() {
-    // Delete all of the Variables in the m_variables map
-    for (auto it = m_variables->begin(); it != m_variables->end(); ++it) {
-        auto var = it->second;
-        delete var;
-    }
-}
-
 /*
  * Public methods
  */

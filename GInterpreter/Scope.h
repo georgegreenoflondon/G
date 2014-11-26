@@ -44,7 +44,6 @@ class Scope {
      */
 public:
     Scope();
-    ~Scope();
     
     /*
      * Methods

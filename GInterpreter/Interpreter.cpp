@@ -25,11 +25,11 @@ Interpreter::Interpreter(const char *filepath)
     bool finished = false;
     while (!finished) {
         // Get the first word from the lexer
-        std::string *word = new std::string();
-        if (m_lexer.readWord(word)) {
+        std::string word;
+        if (m_lexer.readWord(&word)) {
             // Check if the word is a valid function
-            if (m_keywords.count(*word)) {
-                g_function func = m_keywords[*word];
+            if (m_keywords.count(word)) {
+                g_function func = m_keywords[word];
                 (*func)(*this, m_lexer);
             }
         } else {

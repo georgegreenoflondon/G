@@ -70,3 +70,10 @@ Variable * Scope::getVariable(std::string identifier) {
 void Scope::addChildScope(Scope *childScope, std::string identifier) {
     m_childScopes[identifier] = childScope;
 }
+
+Scope *Scope::getChildScope(std::string identifier) {
+    if (m_childScopes.count(identifier)) {
+        return m_childScopes[identifier];
+    }
+    return nullptr;
+}

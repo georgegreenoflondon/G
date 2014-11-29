@@ -60,6 +60,7 @@ public:
     void setVariable(std::string identifier, void* value);
     Variable * getVariable(std::string identifier);
     void addChildScope(Scope *childScope, std::string identifier);
+    Scope *getChildScope(std::string identifier);
     
     LexicalAnalyser *getLexer() { return m_lexer; }
     

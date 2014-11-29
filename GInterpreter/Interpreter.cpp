@@ -111,11 +111,17 @@ void Interpreter::interpret(Scope *scope) {
     while (!finished) {
         // Get the first word from the lexer
         std::string word;
-        if (m_globalScope->getLexer()->readWord(&word)) {
+        if (scope->getLexer()->readWord(&word)) {
             // Check if the word is a valid function
             if (m_keywords.count(word)) {
                 g_function func = m_keywords[word];
                 (*func)(this, scope);
+            } else {
+                // Check if the word is a valid identifier for a subscope within this scope
+                Scope *childScope = scope->getChildScope(word);
+                if (childScope != nullptr) {
+                    interpret(childScope);
+                }
             }
         } else {
             finished = true;

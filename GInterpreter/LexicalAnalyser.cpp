@@ -18,18 +18,11 @@
  * Constructor
  */
 
-LexicalAnalyser::LexicalAnalyser(std::string filepath)
-:m_filepath(filepath)
-,m_position(0) {
-    // Read the file
-    std::ifstream file(m_filepath);
-    std::string str;
-    m_length = 0;
-    while (std::getline(file, str)) {
-        m_code.append(str);
-        m_code.append("\n");
-        m_length += str.length() + 1;
-    }
+LexicalAnalyser::LexicalAnalyser(std::string code)
+:m_code(code)
+,m_position(0)
+,m_length((unsigned int)m_code.length()){
+    m_length = (unsigned int)m_code.length();
 }
 
 /*

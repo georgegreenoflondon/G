@@ -8,7 +8,6 @@
 
 #include <stdio.h>
 #include <fstream>
-#include "Scope.h"
 
 #ifndef GInterpreter_LexicalAnalyser_h
 #define GInterpreter_LexicalAnalyser_h
@@ -19,7 +18,7 @@ class LexicalAnalyser {
      * Constructor
      */
 public:
-    LexicalAnalyser(std::string filepath);
+    LexicalAnalyser(std::string code);
     
     /*
      * Methods
@@ -48,11 +47,9 @@ public:
      * Data members
      */
 public:
-    std::string m_filepath;
     std::string m_code;
     unsigned int m_position;
     unsigned int m_length;
-    Scope *m_scope;
     
 };
 

@@ -13,7 +13,8 @@
  * Constructor
  */
 
-Scope::Scope() {
+Scope::Scope(std::string code) {
+    m_lexer = new LexicalAnalyser(code);
     m_variables = new std::map<std::string, Variable*>();
 }
 
@@ -64,4 +65,8 @@ Variable * Scope::getVariable(std::string identifier) {
     } else { // not found
         throw "Variable does not exist";
     }
+}
+
+void Scope::addChildScope(Scope *childScope, std::string identifier) {
+    m_childScopes[identifier] = childScope;
 }

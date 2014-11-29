@@ -7,7 +7,6 @@
 //
 
 #include <stdio.h>
-#include "LexicalAnalyser.h"
 #include "Scope.h"
 #include <map>
 
@@ -16,7 +15,7 @@
 
 class Interpreter {
     
-    typedef void (*g_function)(Interpreter *intp, LexicalAnalyser *lexer);
+    typedef void (*g_function)(Interpreter *intp, Scope *scope);
     
     /*
      * Consturctor
@@ -37,7 +36,6 @@ private:
      */
 public:
     Scope *m_globalScope;
-    LexicalAnalyser m_lexer;
     std::map<std::string, g_function> m_keywords;
     
     /*

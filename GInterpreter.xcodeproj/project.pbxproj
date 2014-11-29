@@ -69,10 +69,10 @@
 				E70BDDE91A220B3D00D15D3A /* main.cpp */,
 				E70BDDF11A220F8500D15D3A /* Interpreter.h */,
 				E70BDDF21A22109900D15D3A /* Interpreter.cpp */,
-				E70BDDF01A220F5400D15D3A /* LexicalAnalyser.h */,
-				E70BDDF41A2211CF00D15D3A /* LexicalAnalyser.cpp */,
 				E70BDDF71A222FFC00D15D3A /* Scope.h */,
 				E70BDDF61A222FFC00D15D3A /* Scope.cpp */,
+				E70BDDF01A220F5400D15D3A /* LexicalAnalyser.h */,
+				E70BDDF41A2211CF00D15D3A /* LexicalAnalyser.cpp */,
 			);
 			path = GInterpreter;
 			sourceTree = "<group>";
@@ -250,6 +250,7 @@
 				E70BDDEF1A220B3D00D15D3A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

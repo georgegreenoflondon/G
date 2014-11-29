@@ -13,6 +13,7 @@
 #include <vector>
 #include <map>
 #include <iostream>
+#include "LexicalAnalyser.h"
 
 class Variable {
 public:
@@ -48,7 +49,7 @@ class Scope {
      * Constructor
      */
 public:
-    Scope();
+    Scope(std::string code);
     
     /*
      * Methods
@@ -58,14 +59,18 @@ public:
     void addVariable(std::string identifier, int varType);
     void setVariable(std::string identifier, void* value);
     Variable * getVariable(std::string identifier);
+    void addChildScope(Scope *childScope, std::string identifier);
+    
+    LexicalAnalyser *getLexer() { return m_lexer; }
     
     /*
      * Data members
      */
 private:
     Scope *m_parentScope;
-    std::map<std::string, Scope> m_childScopes;
+    std::map<std::string, Scope*> m_childScopes;
     std::map<std::string, Variable*> *m_variables;
+    LexicalAnalyser *m_lexer;
     
 };
 

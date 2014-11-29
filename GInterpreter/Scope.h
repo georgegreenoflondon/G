@@ -20,6 +20,8 @@ public:
         if (m_value != nullptr) {
             if (m_varType == 0) { // int
                 delete (int *)m_value;
+            } else if (m_varType == 1) {// string
+                delete (std::string *)m_value;
             }
         }
     }
@@ -32,6 +34,9 @@ public:
             char result[16] = "xxxxxxxxxxxxxxx";
             snprintf(result, 16, "%d", i);
             return std::string(result);
+        } else if (m_varType == 1) { // string
+            std::string string = *(std::string *)m_value;
+            return string;
         }
         return "(NULL)";
     }

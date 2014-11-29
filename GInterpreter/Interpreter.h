@@ -16,7 +16,7 @@
 
 class Interpreter {
     
-    typedef void (*g_function)(Interpreter intp, LexicalAnalyser lexer);
+    typedef void (*g_function)(Interpreter *intp, LexicalAnalyser *lexer);
     
     /*
      * Consturctor

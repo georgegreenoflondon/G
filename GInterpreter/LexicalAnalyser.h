@@ -44,6 +44,12 @@ public:
     bool back(int count);
     
     /*
+     * Private Helper Methods
+     */
+private:
+    bool isWordBoundary(char ch);
+    
+    /*
      * Data members
      */
 public:

@@ -60,11 +60,7 @@ bool LexicalAnalyser::readWord(std::string *word) {
     char ch;
     bool startedWord = false;
     while (readNext(&ch)) {
-        if (!isspace(ch)) {
-            if (ch == ';') {
-                *word = returnWord;
-                return true;
-            }
+        if (!isWordBoundary(ch)) {
             // Append the character
             returnWord += ch;
             startedWord = true;
@@ -188,4 +184,14 @@ bool LexicalAnalyser::back(int count) {
         m_position -= count;
         return true;
     } else return false;
+}
+
+/*
+ * Private Helper Methods
+ */
+
+bool LexicalAnalyser::isWordBoundary(char ch) {
+    if (isspace(ch)) return true;
+    else if (ch == ';') return true;
+    return false;
 }

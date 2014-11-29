@@ -26,6 +26,7 @@ public:
     /*
      * Private methods
      */
+    void interpret(Scope *scope);
     void setupFunctions();
     
 private:

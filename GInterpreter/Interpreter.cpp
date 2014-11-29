@@ -27,21 +27,8 @@ Interpreter::Interpreter(const char *filepath) {
     m_globalScope = new Scope(code);
     // Setup the functions
     setupFunctions();
-    // Start parsing
-    bool finished = false;
-    while (!finished) {
-        // Get the first word from the lexer
-        std::string word;
-        if (m_globalScope->getLexer()->readWord(&word)) {
-            // Check if the word is a valid function
-            if (m_keywords.count(word)) {
-                g_function func = m_keywords[word];
-                (*func)(this, m_globalScope);
-            }
-        } else {
-            finished = true;
-        }
-    }
+    // Start interpreting the global scope
+    interpret(m_globalScope);
 }
 
 /*
@@ -118,10 +105,27 @@ void g_func(Interpreter *intp, Scope *scope) {
  * Private methods
  */
 
+void Interpreter::interpret(Scope *scope) {
+    // Start parsing
+    bool finished = false;
+    while (!finished) {
+        // Get the first word from the lexer
+        std::string word;
+        if (m_globalScope->getLexer()->readWord(&word)) {
+            // Check if the word is a valid function
+            if (m_keywords.count(word)) {
+                g_function func = m_keywords[word];
+                (*func)(this, scope);
+            }
+        } else {
+            finished = true;
+        }
+    }
+}
+
 void Interpreter::setupFunctions() {
     m_keywords["print"] = g_print;
     m_keywords["int"] = g_int;
     m_keywords["string"] = g_string;
     m_keywords["func"] = g_func;
 }
-

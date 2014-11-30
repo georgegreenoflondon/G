@@ -13,6 +13,8 @@
 #ifndef GInterpreter_Interpreter_h
 #define GInterpreter_Interpreter_h
 
+class FunctionTemplate;
+
 class Interpreter {
     
     typedef void (*g_function)(Interpreter *intp, Scope *scope);
@@ -29,6 +31,7 @@ public:
     void interpret(Scope *scope);
     void setupTypes();
     void setupFunctions();
+    void g_functionCall(Scope *currentScope, FunctionTemplate const &functionTemplate);
     
 private:
     

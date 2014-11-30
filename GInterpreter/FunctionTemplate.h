@@ -21,6 +21,7 @@ class FunctionTemplate : public Scope {
      */
 public:
     FunctionTemplate(string paramString, int returnType, string scopeCode);
+    FunctionTemplate(FunctionTemplate const &functionTemplate);
     
     /*
      * Data members

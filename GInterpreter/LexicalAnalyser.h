@@ -42,6 +42,8 @@ public:
     bool readSymbol(char symbol);
     // Move the position pointer back
     bool back(int count);
+    // Read a basic type literal
+    bool readBasicLiteral(int literalType, void **value);
     
     /*
      * Private Helper Methods

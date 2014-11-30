@@ -99,8 +99,8 @@
 			children = (
 				E73E61371A2A7368002D9638 /* FunctionTemplate.h */,
 				E73E61361A2A7368002D9638 /* FunctionTemplate.cpp */,
-				E7A08FC31A2B9A6D007AE6AD /* FunctionInstance.cpp */,
 				E7A08FC41A2B9A6D007AE6AD /* FunctionInstance.h */,
+				E7A08FC31A2B9A6D007AE6AD /* FunctionInstance.cpp */,
 			);
 			name = Functions;
 			sourceTree = "<group>";

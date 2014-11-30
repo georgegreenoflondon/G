@@ -10,6 +10,7 @@
 #include <string>
 #include <iostream>
 #include "FunctionTemplate.h"
+#include "FunctionInstance.h"
 
 /*
  * Constructor
@@ -60,29 +61,10 @@ void g_baseVar(Interpreter *intp, Scope *scope, int varType) {
     if (lexer->readIdentifier(&varName)) {
         // Look for the = symbol
         if (lexer->readSymbol('=')) {
-            switch (varType) {
-                case G_INT_TYPE: {
-                    // Attempt to read an int
-                    int i;
-                    if (lexer->readInt(&i)) {
-                        int *value = new int(i);
-                        scope->addVariable(varName, 0);
-                        scope->setVariable(varName, value);
-                    } else throw "Expected int.";
-                } break;
-                    
-                case G_STRING_TYPE: {
-                    // Attempt to read a string
-                    std::string string;
-                    if (lexer->readString(&string)) {
-                        std::string *value = new std::string(string);
-                        scope->addVariable(varName, 1);
-                        scope->setVariable(varName, value);
-                    } else throw "Expected string.";
-                } break;
-                    
-                default:
-                    break;
+            void *value;
+            if (lexer->readBasicLiteral(varType, &value)) {
+                scope->addVariable(varName, varType);
+                scope->setVariable(varName, value);
             }
         } else throw "Expected =.";
     } else throw "Expected identifier.";
@@ -138,10 +120,14 @@ void Interpreter::interpret(Scope *scope) {
                     int varType = g_types[word];
                     g_baseVar(this, scope, varType);
                 } else {
-                    // Check if the word is a valid identifier for a subscope within this scope
+                    // Check if the word is an identifier for a function that is a subscope of this one
                     Scope *childScope = scope->getChildScope(word);
                     if (childScope != nullptr) {
-                        interpret(childScope);
+                        FunctionTemplate const *funcPtr = dynamic_cast<FunctionTemplate const *>(childScope);
+                        if (funcPtr) {
+                            FunctionTemplate const &funcRef = *funcPtr;
+                            g_functionCall(scope, funcRef);
+                        }
                     }
                 }
             }
@@ -149,6 +135,19 @@ void Interpreter::interpret(Scope *scope) {
             finished = true;
         }
     }
+}
+
+void Interpreter::g_functionCall(Scope *currentScope, FunctionTemplate const &functionTemplate) {
+    // Read the parameter string for the function
+    string params;
+    if (currentScope->m_lexer->readUntil(')', &params)) {
+        // Create an instance of the function
+        FunctionInstance *func = new FunctionInstance(functionTemplate, params);
+        // Run the interpretation
+        interpret(func);
+        // Free the function instance
+        delete func;
+    } else throw "Expected parameter list.";
 }
 
 void Interpreter::setupFunctions() {

@@ -9,6 +9,18 @@
 #ifndef __GInterpreter__FunctionInstance__
 #define __GInterpreter__FunctionInstance__
 
-#include <stdio.h>
+#include "FunctionTemplate.h"
+
+using namespace std;
+
+class FunctionInstance : public FunctionTemplate {
+    
+    /*
+     * Constructor
+     */
+public:
+    FunctionInstance(FunctionTemplate const &functionTemplate, string parameterString);
+    
+};
 
 #endif /* defined(__GInterpreter__FunctionInstance__) */

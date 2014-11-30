@@ -18,6 +18,10 @@ Scope::Scope(std::string code) {
     m_variables = new std::map<std::string, Variable*>();
 }
 
+Scope::~Scope() {
+    
+}
+
 /*
  * Public methods
  */

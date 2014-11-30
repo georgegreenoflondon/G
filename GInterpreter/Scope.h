@@ -52,6 +52,8 @@ class Scope {
 public:
     Scope(std::string code);
     
+    virtual ~Scope();
+    
     /*
      * Methods
      */
@@ -68,7 +70,7 @@ public:
     /*
      * Data members
      */
-private:
+public:
     Scope *m_parentScope;
     std::map<std::string, Scope*> m_childScopes;
     std::map<std::string, Variable*> *m_variables;

@@ -33,3 +33,10 @@ FunctionTemplate::FunctionTemplate(string paramString, int returnType, string sc
     // Free the memory used by the temporary lexer
     delete tempLexer;
 }
+
+FunctionTemplate::FunctionTemplate(FunctionTemplate const &functionTemplate)
+: Scope(functionTemplate.m_lexer->m_code)
+, m_params(functionTemplate.m_params)
+, m_returnType(functionTemplate.m_returnType) {
+    
+}

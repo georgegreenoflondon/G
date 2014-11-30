@@ -9,6 +9,8 @@
 #ifndef GInterpreter_Types_h
 #define GInterpreter_Types_h
 
+#include <map>
+
 #define G_VOID_TYPE -1
 #define G_INT_TYPE 0
 #define G_STRING_TYPE 1

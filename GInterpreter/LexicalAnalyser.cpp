@@ -9,6 +9,7 @@
 #include "LexicalAnalyser.h"
 #include <vector>
 #include <ctype.h>
+#include "Types.h"
 
 /*
  * Constants
@@ -30,7 +31,7 @@ LexicalAnalyser::LexicalAnalyser(std::string code)
  */
 
 bool LexicalAnalyser::readNext(char *result) {
-    if (m_position < m_length - 1) {
+    if (m_position < m_length) {
         *result = m_code.at(m_position);
         m_position++;
         return true;
@@ -71,6 +72,10 @@ bool LexicalAnalyser::readWord(std::string *word) {
                 return true;
             }
         }
+    }
+    if (startedWord && returnWord.length() != 0) {
+        *word = returnWord;
+        return true;
     }
     return false;
 }
@@ -185,6 +190,32 @@ bool LexicalAnalyser::back(int count) {
         m_position -= count;
         return true;
     } else return false;
+}
+
+bool LexicalAnalyser::readBasicLiteral(int literalType, void **returnValue) {
+    switch (literalType) {
+        case G_INT_TYPE: {
+            // Attempt to read an int
+            int i;
+            if (readInt(&i)) {
+                int *value = new int(i);
+                *returnValue = value;
+            } else throw "Expected int.";
+        } break;
+         
+        case G_STRING_TYPE: {
+            // Attempt to read a string
+            std::string string;
+            if (readString(&string)) {
+                std::string *value = new std::string(string);
+                *returnValue = value;
+            } else throw "Expected string.";
+        } break;
+            
+        default: return false;
+            break;
+    }
+    return true;
 }
 
 /*

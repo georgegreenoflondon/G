@@ -39,7 +39,6 @@ private:
 public:
     Scope *m_globalScope;
     std::map<std::string, g_function> m_keywords;
-    std::map<std::string, int> m_types;
     
     /*
      * Functions

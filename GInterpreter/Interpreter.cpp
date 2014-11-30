@@ -9,6 +9,7 @@
 #include "Interpreter.h"
 #include <string>
 #include <iostream>
+#include "Function.h"
 
 /*
  * Constructor
@@ -25,8 +26,6 @@ Interpreter::Interpreter(const char *filepath) {
     }
     // Create the global scope
     m_globalScope = new Scope(code);
-    // Setup the basic types
-    setupTypes();
     // Setup the functions
     setupFunctions();
     // Start interpreting the global scope
@@ -94,12 +93,27 @@ void g_func(Interpreter *intp, Scope *scope) {
     std::string funcName;
     LexicalAnalyser *lexer = scope->getLexer();
     if (lexer->readIdentifier(&funcName)) {
-        // Look for a scope following the identifier
-        std::string scopeCode;
-        lexer->readScope(&scopeCode);
-        // Create a new lexer for the function
-        Scope *newScope = new Scope(scopeCode);
-        scope->addChildScope(newScope, funcName);
+        // Go back 1 as the call to readIdentifier will have read the '('
+        lexer->back(1);
+        // Look for a parameter list following the identifier
+        if (lexer->readSymbol('(')) {
+            std::string paramString;
+            lexer->readUntil(')', &paramString);
+            // Look for a return type
+            int returnType = G_VOID_TYPE;
+            if (lexer->readSymbol('>')) {
+                std::string returnTypeIdentifier;
+                if (lexer->readWord(&returnTypeIdentifier)) {
+                    if (g_types.count(returnTypeIdentifier)) returnType = g_types[returnTypeIdentifier];
+                }
+            }
+            // Look for a scope following the identifier
+            std::string scopeCode;
+            lexer->readScope(&scopeCode);
+            // Create a new function scope for the function
+            Function *newFunc = new Function(paramString, returnType, scopeCode);
+            scope->addChildScope(newFunc, funcName);
+        } else throw "Expected parameter list.";
     } else throw "Expected indentifier.";
 }
 
@@ -120,8 +134,8 @@ void Interpreter::interpret(Scope *scope) {
                 (*func)(this, scope);
             } else {
                 // Check if the word is a basic type identifier
-                if (m_types.count(word)) {
-                    int varType = m_types[word];
+                if (g_types.count(word)) {
+                    int varType = g_types[word];
                     g_baseVar(this, scope, varType);
                 } else {
                     // Check if the word is a valid identifier for a subscope within this scope
@@ -135,11 +149,6 @@ void Interpreter::interpret(Scope *scope) {
             finished = true;
         }
     }
-}
-
-void Interpreter::setupTypes() {
-    m_types["int"] = G_INT_TYPE;
-    m_types["string"] = G_STRING_TYPE;
 }
 
 void Interpreter::setupFunctions() {

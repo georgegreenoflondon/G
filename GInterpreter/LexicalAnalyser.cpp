@@ -173,9 +173,10 @@ bool LexicalAnalyser::readSymbol(char symbol) {
     while (readNext(&ch)) {
         if (!isspace(ch)) {
             if (ch == symbol) return true;
-            else return false;
+            else break;
         }
     }
+    back(1); // go back to make up for reading an invalid character (if this is not a syntax error, the char may want to be read by the next stage)
     return false;
 }
 
@@ -193,5 +194,7 @@ bool LexicalAnalyser::back(int count) {
 bool LexicalAnalyser::isWordBoundary(char ch) {
     if (isspace(ch)) return true;
     else if (ch == ';') return true;
+    else if (ch == ',') return true;
+    else if (ch == '(') return true;
     return false;
 }

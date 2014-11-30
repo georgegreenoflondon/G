@@ -14,16 +14,18 @@
 
 using namespace std;
 
-class Function : Scope {
+class Function : public Scope {
     
     /*
-     * Condtructor
+     * Constructor
      */
-    Function(string code, int returnType, map<string, int> params);
+public:
+    Function(string paramString, int returnType, string scopeCode);
     
     /*
      * Data members
      */
+    int m_returnType;
     map<string, int> m_params;
     
 };

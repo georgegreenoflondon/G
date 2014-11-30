@@ -7,3 +7,29 @@
 //
 
 #include "Function.h"
+
+/*
+ * Constructor
+ */
+
+Function::Function(string paramString, int returnType, string scopeCode)
+: Scope(scopeCode)
+, m_returnType(returnType) {
+    // Parse the parameter string
+    LexicalAnalyser *tempLexer = new LexicalAnalyser(paramString);
+    bool finished = paramString.length() == 0;
+    while (!finished) {
+        std::string typeIdentifier;
+        if (tempLexer->readWord(&typeIdentifier)) {
+            if (g_types.count(typeIdentifier)) {
+                int type = g_types[typeIdentifier];
+                std::string identifier;
+                if (tempLexer->readWord(&identifier)) {
+                    m_params[identifier] = type;
+                }
+            } else throw "Expected type.";
+        } else finished = true;
+    }
+    // Free the memory used by the temporary lexer
+    delete tempLexer;
+}

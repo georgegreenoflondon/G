@@ -14,14 +14,15 @@
 #include <map>
 #include <iostream>
 #include "LexicalAnalyser.h"
+#include "Types.h"
 
 class Variable {
 public:
     ~Variable() {
         if (m_value != nullptr) {
-            if (m_varType == 0) { // int
+            if (m_varType == G_INT_TYPE) { // int
                 delete (int *)m_value;
-            } else if (m_varType == 1) {// string
+            } else if (m_varType == G_STRING_TYPE) {// string
                 delete (std::string *)m_value;
             }
         }
@@ -30,12 +31,12 @@ public:
     int m_varType;
     void* m_value;
     std::string toString() {
-        if (m_varType == 0) { // int
+        if (m_varType == G_INT_TYPE) { // int
             int i = *(int *)m_value;
             char result[16] = "xxxxxxxxxxxxxxx";
             snprintf(result, 16, "%d", i);
             return std::string(result);
-        } else if (m_varType == 1) { // string
+        } else if (m_varType == G_STRING_TYPE) { // string
             std::string string = *(std::string *)m_value;
             return string;
         }

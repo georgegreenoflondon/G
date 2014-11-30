@@ -25,6 +25,8 @@ Interpreter::Interpreter(const char *filepath) {
     }
     // Create the global scope
     m_globalScope = new Scope(code);
+    // Setup the basic types
+    setupTypes();
     // Setup the functions
     setupFunctions();
     // Start interpreting the global scope
@@ -52,39 +54,47 @@ void g_print(Interpreter *intp, Scope *scope) {
     }
 }
 
-void g_int(Interpreter *intp, Scope *scope) {
-    // Get the next word as the variable name
+void g_baseVar(Interpreter *intp, Scope *scope, int varType) {
+    // Read the next word as the var name
     std::string varName;
     LexicalAnalyser *lexer = scope->getLexer();
     if (lexer->readIdentifier(&varName)) {
         // Look for the = symbol
         if (lexer->readSymbol('=')) {
-            int i;
-            if (lexer->readInt(&i)) {
-                int *value = new int(i);
-                scope->addVariable(varName, 0);
-                scope->setVariable(varName, value);
-            } else throw "Expected int.";
-        } else throw "Expected: =.";
-    } else throw "Expected indentifier.";
+            switch (varType) {
+                case G_INT_TYPE: {
+                    // Attempt to read an int
+                    int i;
+                    if (lexer->readInt(&i)) {
+                        int *value = new int(i);
+                        scope->addVariable(varName, 0);
+                        scope->setVariable(varName, value);
+                    } else throw "Expected int.";
+                } break;
+                    
+                case G_STRING_TYPE: {
+                    // Attempt to read a string
+                    std::string string;
+                    if (lexer->readString(&string)) {
+                        std::string *value = new std::string(string);
+                        scope->addVariable(varName, 1);
+                        scope->setVariable(varName, value);
+                    } else throw "Expected string.";
+                } break;
+                    
+                default:
+                    break;
+            }
+        } else throw "Expected =.";
+    } else throw "Expected identifier.";
+}
+
+void g_int(Interpreter *intp, Scope *scope) {
+    g_baseVar(intp, scope, G_INT_TYPE);
 }
 
 void g_string(Interpreter *intp, Scope *scope) {
-    // Get the next word as the variable name
-    std::string varName;
-    LexicalAnalyser *lexer = scope->getLexer();
-    if (lexer->readIdentifier(&varName)) {
-        // Look for the = symbol
-        if (lexer->readSymbol('=')) {
-            // Attempt to read a string
-            std::string string;
-            if (lexer->readString(&string)) {
-                std::string *value = new std::string(string);
-                scope->addVariable(varName, 1);
-                scope->setVariable(varName, value);
-            } else throw "Expected string.";
-        } else throw "Expected: =.";
-    } else throw "Expected indentifier.";
+    g_baseVar(intp, scope, G_STRING_TYPE);
 }
 
 void g_func(Interpreter *intp, Scope *scope) {
@@ -127,6 +137,11 @@ void Interpreter::interpret(Scope *scope) {
             finished = true;
         }
     }
+}
+
+void Interpreter::setupTypes() {
+    m_types["int"] = G_INT_TYPE;
+    m_types["string"] = G_STRING_TYPE;
 }
 
 void Interpreter::setupFunctions() {

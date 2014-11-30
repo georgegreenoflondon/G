@@ -6,13 +6,13 @@
 //  Copyright (c) 2014 George Green. All rights reserved.
 //
 
-#include "Function.h"
+#include "FunctionTemplate.h"
 
 /*
  * Constructor
  */
 
-Function::Function(string paramString, int returnType, string scopeCode)
+FunctionTemplate::FunctionTemplate(string paramString, int returnType, string scopeCode)
 : Scope(scopeCode)
 , m_returnType(returnType) {
     // Parse the parameter string

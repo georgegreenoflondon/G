@@ -14,13 +14,13 @@
 
 using namespace std;
 
-class Function : public Scope {
+class FunctionTemplate : public Scope {
     
     /*
      * Constructor
      */
 public:
-    Function(string paramString, int returnType, string scopeCode);
+    FunctionTemplate(string paramString, int returnType, string scopeCode);
     
     /*
      * Data members

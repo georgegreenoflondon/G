@@ -9,7 +9,7 @@
 #include "Interpreter.h"
 #include <string>
 #include <iostream>
-#include "Function.h"
+#include "FunctionTemplate.h"
 
 /*
  * Constructor
@@ -111,7 +111,7 @@ void g_func(Interpreter *intp, Scope *scope) {
             std::string scopeCode;
             lexer->readScope(&scopeCode);
             // Create a new function scope for the function
-            Function *newFunc = new Function(paramString, returnType, scopeCode);
+            FunctionTemplate *newFunc = new FunctionTemplate(paramString, returnType, scopeCode);
             scope->addChildScope(newFunc, funcName);
         } else throw "Expected parameter list.";
     } else throw "Expected indentifier.";

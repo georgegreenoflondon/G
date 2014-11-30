@@ -11,7 +11,8 @@
 		E70BDDF31A22109A00D15D3A /* Interpreter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E70BDDF21A22109900D15D3A /* Interpreter.cpp */; };
 		E70BDDF51A2211CF00D15D3A /* LexicalAnalyser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E70BDDF41A2211CF00D15D3A /* LexicalAnalyser.cpp */; };
 		E70BDDF81A222FFC00D15D3A /* Scope.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E70BDDF61A222FFC00D15D3A /* Scope.cpp */; };
-		E73E61381A2A7368002D9638 /* Function.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E73E61361A2A7368002D9638 /* Function.cpp */; };
+		E73E61381A2A7368002D9638 /* FunctionTemplate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E73E61361A2A7368002D9638 /* FunctionTemplate.cpp */; };
+		E7A08FC51A2B9A6D007AE6AD /* FunctionInstance.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E7A08FC31A2B9A6D007AE6AD /* FunctionInstance.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -35,9 +36,11 @@
 		E70BDDF41A2211CF00D15D3A /* LexicalAnalyser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LexicalAnalyser.cpp; sourceTree = "<group>"; };
 		E70BDDF61A222FFC00D15D3A /* Scope.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Scope.cpp; sourceTree = "<group>"; };
 		E70BDDF71A222FFC00D15D3A /* Scope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scope.h; sourceTree = "<group>"; };
-		E73E61361A2A7368002D9638 /* Function.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Function.cpp; sourceTree = "<group>"; };
-		E73E61371A2A7368002D9638 /* Function.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Function.h; sourceTree = "<group>"; };
+		E73E61361A2A7368002D9638 /* FunctionTemplate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FunctionTemplate.cpp; sourceTree = "<group>"; };
+		E73E61371A2A7368002D9638 /* FunctionTemplate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FunctionTemplate.h; sourceTree = "<group>"; };
 		E73E61391A2A7434002D9638 /* Types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Types.h; sourceTree = "<group>"; };
+		E7A08FC31A2B9A6D007AE6AD /* FunctionInstance.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FunctionInstance.cpp; sourceTree = "<group>"; };
+		E7A08FC41A2B9A6D007AE6AD /* FunctionInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FunctionInstance.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,10 +89,20 @@
 			children = (
 				E70BDDF71A222FFC00D15D3A /* Scope.h */,
 				E70BDDF61A222FFC00D15D3A /* Scope.cpp */,
-				E73E61371A2A7368002D9638 /* Function.h */,
-				E73E61361A2A7368002D9638 /* Function.cpp */,
+				E7A08FC21A2B9A55007AE6AD /* Functions */,
 			);
 			name = Scopes;
+			sourceTree = "<group>";
+		};
+		E7A08FC21A2B9A55007AE6AD /* Functions */ = {
+			isa = PBXGroup;
+			children = (
+				E73E61371A2A7368002D9638 /* FunctionTemplate.h */,
+				E73E61361A2A7368002D9638 /* FunctionTemplate.cpp */,
+				E7A08FC31A2B9A6D007AE6AD /* FunctionInstance.cpp */,
+				E7A08FC41A2B9A6D007AE6AD /* FunctionInstance.h */,
+			);
+			name = Functions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -148,9 +161,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E7A08FC51A2B9A6D007AE6AD /* FunctionInstance.cpp in Sources */,
 				E70BDDF81A222FFC00D15D3A /* Scope.cpp in Sources */,
 				E70BDDF31A22109A00D15D3A /* Interpreter.cpp in Sources */,
-				E73E61381A2A7368002D9638 /* Function.cpp in Sources */,
+				E73E61381A2A7368002D9638 /* FunctionTemplate.cpp in Sources */,
 				E70BDDEA1A220B3D00D15D3A /* main.cpp in Sources */,
 				E70BDDF51A2211CF00D15D3A /* LexicalAnalyser.cpp in Sources */,
 			);

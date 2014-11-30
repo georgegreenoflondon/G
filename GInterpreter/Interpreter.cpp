@@ -89,14 +89,6 @@ void g_baseVar(Interpreter *intp, Scope *scope, int varType) {
     } else throw "Expected identifier.";
 }
 
-void g_int(Interpreter *intp, Scope *scope) {
-    g_baseVar(intp, scope, G_INT_TYPE);
-}
-
-void g_string(Interpreter *intp, Scope *scope) {
-    g_baseVar(intp, scope, G_STRING_TYPE);
-}
-
 void g_func(Interpreter *intp, Scope *scope) {
     // Get the next word as the function name
     std::string funcName;
@@ -127,10 +119,16 @@ void Interpreter::interpret(Scope *scope) {
                 g_function func = m_keywords[word];
                 (*func)(this, scope);
             } else {
-                // Check if the word is a valid identifier for a subscope within this scope
-                Scope *childScope = scope->getChildScope(word);
-                if (childScope != nullptr) {
-                    interpret(childScope);
+                // Check if the word is a basic type identifier
+                if (m_types.count(word)) {
+                    int varType = m_types[word];
+                    g_baseVar(this, scope, varType);
+                } else {
+                    // Check if the word is a valid identifier for a subscope within this scope
+                    Scope *childScope = scope->getChildScope(word);
+                    if (childScope != nullptr) {
+                        interpret(childScope);
+                    }
                 }
             }
         } else {
@@ -146,7 +144,5 @@ void Interpreter::setupTypes() {
 
 void Interpreter::setupFunctions() {
     m_keywords["print"] = g_print;
-    m_keywords["int"] = g_int;
-    m_keywords["string"] = g_string;
     m_keywords["func"] = g_func;
 }

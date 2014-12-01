@@ -13,9 +13,8 @@ FunctionInstance::FunctionInstance(FunctionTemplate const &functionTemplate, str
     // Parse the parameter string and create in scope variables for each one
     LexicalAnalyser *tempLexer = new LexicalAnalyser(parameterString);
     // Loop over the expected params and attempt to read them from the param string
-    for (auto it = m_params.begin(); it != m_params.end(); ++it) {
-        string identifier = it->first;
-        int varType = it->second;
+    for (string identifier : m_paramIdentifiers) {
+        int varType = m_paramTypes[identifier];
         void *value;
         tempLexer->readBasicLiteral(varType, &value);
         addVariable(identifier, varType);

@@ -25,7 +25,8 @@ FunctionTemplate::FunctionTemplate(string paramString, int returnType, string sc
                 int type = g_types[typeIdentifier];
                 std::string identifier;
                 if (tempLexer->readWord(&identifier)) {
-                    m_params[identifier] = type;
+                    m_paramTypes[identifier] = type;
+                    m_paramIdentifiers.push_back(identifier);
                 }
             } else throw "Expected type.";
         } else finished = true;
@@ -36,7 +37,8 @@ FunctionTemplate::FunctionTemplate(string paramString, int returnType, string sc
 
 FunctionTemplate::FunctionTemplate(FunctionTemplate const &functionTemplate)
 : Scope(functionTemplate.m_lexer->m_code)
-, m_params(functionTemplate.m_params)
+, m_paramTypes(functionTemplate.m_paramTypes)
+, m_paramIdentifiers(functionTemplate.m_paramIdentifiers)
 , m_returnType(functionTemplate.m_returnType) {
     
 }

@@ -27,7 +27,8 @@ public:
      * Data members
      */
     int m_returnType;
-    map<string, int> m_params;
+    vector<string> m_paramIdentifiers;
+    map<string, int> m_paramTypes;
     
 };
 
